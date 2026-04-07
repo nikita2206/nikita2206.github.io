@@ -4,69 +4,83 @@ import HeaderLink from './HeaderLink.astro';
 ---
 
 <header>
-	<nav>
+	<div class="utility-bar">
+		<nav aria-label="Utility">
+			<div class="internal-links">
+				<HeaderLink href="/">Posts</HeaderLink>
+				<HeaderLink href="/archive">Archive</HeaderLink>
+				<HeaderLink href="/about">About</HeaderLink>
+			</div>
+		</nav>
+	</div>
+	<div class="masthead">
 		<h2><a href="/">{SITE_TITLE}</a></h2>
-		<div class="internal-links">
-			<HeaderLink href="/">Posts</HeaderLink>
-			<HeaderLink href="/archive">Archive</HeaderLink>
-			<HeaderLink href="/about">About</HeaderLink>
-		</div>
-	</nav>
+	</div>
 </header>
 <style>
 	header {
 		position: sticky;
 		top: 0;
 		z-index: 20;
-		margin: 0;
-		padding: 0 1rem;
-		background: rgba(255, 255, 255, 0.78);
+		background: rgba(255, 252, 247, 0.84);
 		backdrop-filter: blur(12px);
 		border-bottom: 1px solid rgba(var(--gray), 0.12);
 	}
 
-	h2 {
-		margin: 0;
-		font-size: 1rem;
+	.utility-bar {
+		padding: 0 1rem;
+		border-bottom: 1px solid rgba(var(--gray), 0.1);
 	}
 
-	h2 a,
-	h2 a.active {
-		text-decoration: none;
-	}
-
-	nav {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
+	.utility-bar nav,
+	.masthead {
 		max-width: 960px;
 		margin: 0 auto;
 	}
 
 	.internal-links {
 		display: flex;
-		gap: 0.25rem;
+		gap: 0.85rem;
+		padding: 0.45rem 0;
 	}
 
-	nav a {
-		padding: 1rem 0.65rem;
+	.utility-bar a {
+		padding: 0;
+		font-size: 0.76rem;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		color: rgb(var(--gray));
+		text-decoration: none;
+		border-bottom: 1px solid transparent;
+	}
+
+	.utility-bar a.active,
+	.utility-bar a:hover {
 		color: rgb(var(--black));
-		border-bottom: 2px solid transparent;
+		border-bottom-color: rgba(var(--black), 0.6);
+	}
+
+	.masthead {
+		padding: 0.85rem 1rem 0.95rem;
+	}
+
+	h2 {
+		margin: 0;
+		font-size: 1rem;
+		font-weight: 700;
+		letter-spacing: 0.02em;
+	}
+
+	h2 a,
+	h2 a.active {
+		color: rgb(var(--black));
 		text-decoration: none;
 	}
 
-	nav a.active {
-		border-bottom-color: var(--accent);
-	}
-
 	@media (max-width: 560px) {
-		nav {
-			flex-direction: column;
-			align-items: flex-start;
-		}
-
 		.internal-links {
-			width: 100%;
+			gap: 0.65rem;
+			flex-wrap: wrap;
 		}
 	}
 </style>
