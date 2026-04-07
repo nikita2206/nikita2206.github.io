@@ -154,6 +154,14 @@ blockquote {
 	color: var(--ink-soft);
 }
 
+blockquote > :last-child {
+	margin-bottom: 0;
+}
+
+blockquote p {
+	margin: 0;
+}
+
 hr {
 	border: none;
 	border-top: 1px solid color-mix(in oklab, var(--line) 88%, white);
