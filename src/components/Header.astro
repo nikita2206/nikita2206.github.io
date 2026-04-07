@@ -20,13 +20,13 @@ import HeaderLink from './HeaderLink.astro';
 </header>
 <style>
 	header {
-		background: color-mix(in oklab, var(--paper) 88%, white);
-		border-bottom: 1px solid color-mix(in oklab, var(--line) 80%, white);
+		background: var(--paper);
+		border-bottom: 1px solid color-mix(in oklab, var(--line) 84%, white);
 	}
 
 	.utility-bar {
 		padding: 0 1.25rem;
-		border-bottom: 1px solid color-mix(in oklab, var(--line) 72%, white);
+		border-bottom: 1px solid color-mix(in oklab, var(--line) 88%, white);
 	}
 
 	.utility-bar nav,
@@ -54,7 +54,7 @@ import HeaderLink from './HeaderLink.astro';
 	.utility-bar a.active,
 	.utility-bar a:hover {
 		color: var(--ink);
-		border-bottom-color: color-mix(in oklab, var(--accent) 44%, var(--ink));
+		border-bottom-color: color-mix(in oklab, var(--accent) 22%, var(--ink));
 	}
 
 	.masthead {
