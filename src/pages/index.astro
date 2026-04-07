@@ -9,6 +9,7 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 const posts = (await getCollection('blog')).sort(
 	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );
+const [leadPost, ...restPosts] = posts;
 ---
 
 <!doctype html>
@@ -19,16 +20,31 @@ const posts = (await getCollection('blog')).sort(
 	<body>
 		<Header />
 		<main>
-			<h1>Posts</h1>
+			<section class="intro">
+				<p class="label">Latest writing</p>
+				<h1>Posts</h1>
+				<p class="deck">
+					A running file of notes, observations, links, and the occasional thing that needed more room.
+				</p>
+			</section>
+
+			{leadPost && (
+				<article class="lead-post">
+					<p class="lead-meta"><FormattedDate date={leadPost.data.pubDate} /></p>
+					<h2><a href={`/blog/${leadPost.id}/`}>{leadPost.data.title}</a></h2>
+					<p class="lead-description">{leadPost.data.description}</p>
+				</article>
+			)}
+
 			<ul class="posts">
-				{posts.map((post) => (
-					<li>
+				{restPosts.map((post, index) => (
+					<li class:list={{ odd: index % 2 === 0 }}>
 						<a href={`/blog/${post.id}/`}>
-							<div>
-								<h2>{post.data.title}</h2>
+							<span class="post-date"><FormattedDate date={post.data.pubDate} /></span>
+							<div class="post-body">
+								<h3>{post.data.title}</h3>
 								<p>{post.data.description}</p>
 							</div>
-							<span><FormattedDate date={post.data.pubDate} /></span>
 						</a>
 					</li>
 				))}
@@ -39,39 +55,96 @@ const posts = (await getCollection('blog')).sort(
 </html>
 
 <style>
+	.intro {
+		display: grid;
+		gap: 0.75rem;
+		margin-bottom: 3rem;
+	}
+
+	.label,
+	.lead-meta,
+	.post-date {
+		font-size: 0.78rem;
+		letter-spacing: 0.1em;
+		text-transform: uppercase;
+		color: var(--muted);
+	}
+
+	.deck {
+		max-width: 38rem;
+		font-size: 1.1rem;
+		color: var(--ink-soft);
+	}
+
+	.lead-post {
+		margin: 0 0 3rem;
+		padding: 0 0 2rem;
+		border-bottom: 1px solid color-mix(in oklab, var(--line) 84%, white);
+	}
+
+	.lead-post h2 {
+		font-size: clamp(2rem, 4.8vw, 4rem);
+		max-width: 12ch;
+		margin: 0.35rem 0 0.65rem;
+	}
+
+	.lead-description {
+		max-width: 34rem;
+		font-size: 1.08rem;
+		color: var(--ink-soft);
+	}
+
 	.posts {
 		list-style: none;
-		margin: 2rem 0 0;
+		margin: 0;
 		padding: 0;
+		display: grid;
+		gap: 0;
 	}
 
 	.posts li {
-		border-bottom: 1px solid rgba(var(--gray), 0.14);
+		border-top: 1px solid color-mix(in oklab, var(--line) 84%, white);
 	}
 
 	.posts a {
-		display: flex;
-		justify-content: space-between;
-		gap: 1rem;
-		padding: 1rem 0;
+		display: grid;
+		grid-template-columns: 9rem 1fr;
+		gap: 1.25rem;
+		padding: 1.15rem 0;
 		text-decoration: none;
 		color: inherit;
 	}
 
-	.posts h2 {
-		font-size: 1.35rem;
-		margin-bottom: 0.25rem;
+	.post-body {
+		max-width: 40rem;
 	}
 
-	.posts p,
-	.posts span {
-		color: rgb(var(--gray));
+	.posts h3 {
+		margin-bottom: 0.2rem;
+	}
+
+	.posts p {
+		margin: 0;
+		color: var(--ink-soft);
+	}
+
+	.posts li.odd .post-body {
+		padding-left: 1.2rem;
+	}
+
+	.posts a:hover h3,
+	.lead-post a:hover {
+		color: var(--accent);
 	}
 
 	@media (max-width: 720px) {
 		.posts a {
-			flex-direction: column;
-			align-items: flex-start;
+			grid-template-columns: 1fr;
+			gap: 0.45rem;
+		}
+
+		.posts li.odd .post-body {
+			padding-left: 0;
 		}
 	}
 </style>

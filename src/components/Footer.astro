@@ -3,21 +3,24 @@ const today = new Date();
 ---
 
 <footer>
-	<p>&copy; {today.getFullYear()} Nikita.</p>
-	<p class="subtle">Built with Astro. Hosted on GitHub Pages.</p>
+	<p>&copy; {today.getFullYear()} Nikita</p>
+	<p class="subtle">Built with Astro. Filed carefully.</p>
 </footer>
 <style>
 	footer {
-		padding: 3rem 1rem 5rem;
-		color: rgb(var(--gray));
-		text-align: center;
+		padding: 3rem 1.25rem 4rem;
+		color: var(--muted);
+		text-align: left;
+		max-width: 64rem;
+		margin: 0 auto;
+		border-top: 1px solid color-mix(in oklab, var(--line) 80%, white);
 	}
 
 	footer p {
-		margin: 0.25rem 0;
+		margin: 0.2rem 0;
 	}
 
 	.subtle {
-		font-size: 0.95rem;
+		font-size: 0.88rem;
 	}
 </style>

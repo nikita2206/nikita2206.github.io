@@ -14,6 +14,7 @@ import HeaderLink from './HeaderLink.astro';
 		</nav>
 	</div>
 	<div class="masthead">
+		<p class="kicker">Notes, fragments, dispatches</p>
 		<h2><a href="/">{SITE_TITLE}</a></h2>
 	</div>
 </header>
@@ -22,64 +23,81 @@ import HeaderLink from './HeaderLink.astro';
 		position: sticky;
 		top: 0;
 		z-index: 20;
-		background: rgba(255, 252, 247, 0.84);
-		backdrop-filter: blur(12px);
-		border-bottom: 1px solid rgba(var(--gray), 0.12);
+		background: color-mix(in oklab, var(--paper) 88%, white);
+		backdrop-filter: blur(14px);
+		border-bottom: 1px solid color-mix(in oklab, var(--line) 80%, white);
 	}
 
 	.utility-bar {
-		padding: 0 1rem;
-		border-bottom: 1px solid rgba(var(--gray), 0.1);
+		padding: 0 1.25rem;
+		border-bottom: 1px solid color-mix(in oklab, var(--line) 72%, white);
 	}
 
 	.utility-bar nav,
 	.masthead {
-		max-width: 960px;
+		max-width: 64rem;
 		margin: 0 auto;
 	}
 
 	.internal-links {
 		display: flex;
-		gap: 0.85rem;
+		gap: 0.9rem;
 		padding: 0.45rem 0;
 	}
 
 	.utility-bar a {
 		padding: 0;
-		font-size: 0.76rem;
-		letter-spacing: 0.08em;
+		font-size: 0.74rem;
+		letter-spacing: 0.12em;
 		text-transform: uppercase;
-		color: rgb(var(--gray));
+		color: var(--muted);
 		text-decoration: none;
 		border-bottom: 1px solid transparent;
 	}
 
 	.utility-bar a.active,
 	.utility-bar a:hover {
-		color: rgb(var(--black));
-		border-bottom-color: rgba(var(--black), 0.6);
+		color: var(--ink);
+		border-bottom-color: color-mix(in oklab, var(--accent) 44%, var(--ink));
 	}
 
 	.masthead {
-		padding: 0.85rem 1rem 0.95rem;
+		display: flex;
+		justify-content: space-between;
+		align-items: end;
+		gap: 1rem;
+		padding: 0.8rem 1.25rem 0.9rem;
+	}
+
+	.kicker {
+		margin: 0;
+		font-size: 0.78rem;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		color: var(--muted);
 	}
 
 	h2 {
 		margin: 0;
-		font-size: 1rem;
+		font-size: clamp(1.2rem, 2vw, 1.8rem);
 		font-weight: 700;
-		letter-spacing: 0.02em;
+		letter-spacing: -0.03em;
 	}
 
 	h2 a,
 	h2 a.active {
-		color: rgb(var(--black));
+		color: var(--ink);
 		text-decoration: none;
 	}
 
-	@media (max-width: 560px) {
+	@media (max-width: 640px) {
+		.masthead {
+			flex-direction: column;
+			align-items: flex-start;
+		}
+
 		.internal-links {
-			gap: 0.65rem;
+			gap: 0.7rem;
 			flex-wrap: wrap;
 		}
 	}

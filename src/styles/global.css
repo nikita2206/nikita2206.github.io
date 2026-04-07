@@ -1,14 +1,13 @@
 :root {
-	--accent: #1b57f0;
-	--accent-dark: #123bb0;
-	--black: 17, 24, 39;
-	--gray: 107, 114, 128;
-	--gray-light: 229, 231, 235;
-	--gray-dark: 55, 65, 81;
-	--gray-gradient: rgba(248, 250, 252, 1), rgba(255, 255, 255, 1);
-	--box-shadow:
-		0 10px 30px rgba(15, 23, 42, 0.08),
-		0 2px 10px rgba(15, 23, 42, 0.06);
+	--paper: oklch(0.972 0.012 82);
+	--paper-strong: oklch(0.945 0.018 82);
+	--ink: oklch(0.23 0.035 265);
+	--ink-soft: oklch(0.42 0.03 260);
+	--muted: oklch(0.58 0.02 255);
+	--line: oklch(0.83 0.02 82);
+	--accent: oklch(0.58 0.18 339);
+	--accent-soft: oklch(0.67 0.09 25);
+	--box-shadow: 0 16px 40px rgba(58, 37, 19, 0.08);
 }
 
 @font-face {
@@ -32,24 +31,37 @@ html {
 }
 
 body {
-	font-family: 'Atkinson', system-ui, sans-serif;
+	font-family: Georgia, 'Times New Roman', serif;
 	margin: 0;
 	padding: 0;
 	text-align: left;
 	background:
-		radial-gradient(circle at top, rgba(219, 234, 254, 0.45), transparent 32%),
-		linear-gradient(var(--gray-gradient)) no-repeat;
+		radial-gradient(circle at top left, color-mix(in oklab, var(--accent-soft) 18%, transparent), transparent 28%),
+		radial-gradient(circle at 85% 0%, color-mix(in oklab, var(--accent) 10%, transparent), transparent 24%),
+		linear-gradient(180deg, var(--paper-strong), var(--paper));
+	color: var(--ink);
+	font-size: 19px;
+	line-height: 1.72;
 	word-wrap: break-word;
 	overflow-wrap: break-word;
-	color: rgb(var(--gray-dark));
-	font-size: 19px;
-	line-height: 1.75;
+}
+
+body::before {
+	content: '';
+	position: fixed;
+	inset: 0;
+	pointer-events: none;
+	background-image:
+		linear-gradient(to right, rgba(99, 75, 53, 0.035) 1px, transparent 1px),
+		linear-gradient(to bottom, rgba(99, 75, 53, 0.028) 1px, transparent 1px);
+	background-size: 24px 24px;
+	mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.22), transparent 32%);
 }
 
 main {
-	width: min(100%, 56rem);
+	width: min(100%, 64rem);
 	margin: 0 auto;
-	padding: 3.5rem 1rem;
+	padding: 3rem 1.25rem 4rem;
 }
 
 h1,
@@ -58,22 +70,25 @@ h3,
 h4,
 h5,
 h6 {
-	margin: 0 0 0.5rem 0;
-	color: rgb(var(--black));
-	line-height: 1.1;
-	letter-spacing: -0.02em;
+	margin: 0 0 0.5rem;
+	color: var(--ink);
+	line-height: 0.96;
+	font-weight: 700;
+	letter-spacing: -0.03em;
 }
 
 h1 {
-	font-size: clamp(2.75rem, 7vw, 4.5rem);
+	font-size: clamp(3.4rem, 10vw, 7.5rem);
+	max-width: 10ch;
+	text-wrap: balance;
 }
 
 h2 {
-	font-size: clamp(1.75rem, 4vw, 2.5rem);
+	font-size: clamp(1.5rem, 3vw, 2.4rem);
 }
 
 h3 {
-	font-size: clamp(1.25rem, 3vw, 1.5rem);
+	font-size: clamp(1.15rem, 2vw, 1.45rem);
 }
 
 strong,
@@ -82,12 +97,13 @@ b {
 }
 
 a {
-	color: var(--accent);
+	color: color-mix(in oklab, var(--ink) 75%, var(--accent));
 	text-underline-offset: 0.14em;
+	text-decoration-thickness: 1px;
 }
 
 a:hover {
-	color: var(--accent-dark);
+	color: var(--accent);
 }
 
 p {
@@ -120,20 +136,23 @@ table {
 img {
 	max-width: 100%;
 	height: auto;
-	border-radius: 12px;
+	border-radius: 2px;
 }
 
 code {
-	padding: 0.15em 0.4em;
-	background-color: rgba(var(--gray-light), 0.9);
-	border-radius: 6px;
-	font-size: 0.92em;
+	padding: 0.12em 0.36em;
+	background-color: color-mix(in oklab, var(--paper-strong) 82%, white);
+	border: 1px solid color-mix(in oklab, var(--line) 70%, white);
+	border-radius: 4px;
+	font-size: 0.9em;
 }
 
 pre {
 	padding: 1.25em;
-	border-radius: 14px;
+	border-radius: 10px;
 	overflow-x: auto;
+	background: color-mix(in oklab, var(--paper-strong) 84%, white);
+	border: 1px solid color-mix(in oklab, var(--line) 72%, white);
 }
 
 pre > code {
@@ -141,15 +160,16 @@ pre > code {
 }
 
 blockquote {
-	border-left: 3px solid var(--accent);
-	padding: 0.25rem 0 0.25rem 1rem;
+	border-left: 2px solid var(--accent);
+	padding: 0.15rem 0 0.15rem 1rem;
 	margin: 0;
-	color: rgb(var(--gray-dark));
+	color: var(--ink-soft);
+	font-style: italic;
 }
 
 hr {
 	border: none;
-	border-top: 1px solid rgba(var(--gray), 0.18);
+	border-top: 1px solid color-mix(in oklab, var(--line) 85%, white);
 	margin: 2rem 0;
 }
 
@@ -173,6 +193,10 @@ hr {
 	}
 
 	main {
-		padding: 2rem 1rem;
+		padding: 2rem 1rem 3rem;
+	}
+
+	h1 {
+		max-width: 12ch;
 	}
 }

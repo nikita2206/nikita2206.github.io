@@ -23,21 +23,19 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 				<div class="hero-image">
 					{heroImage && <Image width={1200} height={630} src={heroImage} alt="" />}
 				</div>
+				<header class="title-block">
+					<p class="date">
+						<FormattedDate date={pubDate} />
+						{
+							updatedDate && (
+								<span class="updated"> · Updated <FormattedDate date={updatedDate} /></span>
+							)
+						}
+					</p>
+					<h1>{title}</h1>
+					<p class="description">{description}</p>
+				</header>
 				<div class="prose">
-					<div class="title">
-						<div class="date">
-							<FormattedDate date={pubDate} />
-							{
-								updatedDate && (
-									<div class="last-updated-on">
-										Updated <FormattedDate date={updatedDate} />
-									</div>
-								)
-							}
-						</div>
-						<h1>{title}</h1>
-						<p class="description">{description}</p>
-					</div>
 					<slot />
 				</div>
 			</article>
@@ -48,43 +46,57 @@ const { title, description, pubDate, updatedDate, heroImage } = Astro.props;
 
 <style>
 	main {
-		width: min(100%, 56rem);
+		width: min(100%, 64rem);
 		margin: 0 auto;
 	}
 
-	.hero-image {
-		width: 100%;
+	article {
+		display: grid;
+		gap: 2rem;
 	}
 
 	.hero-image img {
 		display: block;
-		margin: 0 auto 2rem;
-		border-radius: 18px;
+		width: 100%;
+		margin: 0 auto;
+		border-radius: 6px;
 		box-shadow: var(--box-shadow);
 	}
 
-	.prose {
-		width: min(100%, 44rem);
-		margin: 0 auto;
-		padding: 0 1rem 2rem;
-		color: rgb(var(--gray-dark));
+	.title-block {
+		display: grid;
+		gap: 0.6rem;
+		max-width: 46rem;
 	}
 
-	.title {
-		margin-bottom: 2rem;
-	}
-
-	.title h1 {
-		margin: 0.25rem 0 0.5rem;
-		line-height: 1.05;
+	.title-block h1 {
+		max-width: 12ch;
 	}
 
 	.description,
 	.date {
-		color: rgb(var(--gray));
+		color: var(--ink-soft);
 	}
 
-	.last-updated-on {
-		font-style: italic;
+	.date {
+		font-size: 0.78rem;
+		letter-spacing: 0.1em;
+		text-transform: uppercase;
+	}
+
+	.prose {
+		width: min(100%, 42rem);
+		padding-bottom: 2rem;
+	}
+
+	.prose :global(h2),
+	.prose :global(h3) {
+		margin-top: 2.25rem;
+		line-height: 1.02;
+	}
+
+	.prose :global(p),
+	.prose :global(li) {
+		max-width: 65ch;
 	}
 </style>

@@ -38,11 +38,18 @@ const years = Array.from(
 	<body>
 		<Header />
 		<main>
-			<h1>Archive</h1>
+			<section class="archive-intro">
+				<p class="label">Index</p>
+				<h1>Archive</h1>
+				<p class="deck">Time-based shelves. No fake endlessness.</p>
+			</section>
+
 			<div class="years">
 				{years.map(({ year, months }) => (
 					<section>
-						<h2><a href={`/archive/${year}/`}>{year}</a></h2>
+						<div class="year-heading">
+							<h2><a href={`/archive/${year}/`}>{year}</a></h2>
+						</div>
 						<ul>
 							{months.map(({ month, label }) => (
 								<li><a href={`/archive/${year}/${month}/`}>{label}</a></li>
@@ -57,13 +64,43 @@ const years = Array.from(
 </html>
 
 <style>
+	.archive-intro {
+		margin-bottom: 2.5rem;
+	}
+
+	.label {
+		font-size: 0.78rem;
+		letter-spacing: 0.1em;
+		text-transform: uppercase;
+		color: var(--muted);
+	}
+
+	.deck {
+		color: var(--ink-soft);
+	}
+
 	.years {
 		display: grid;
-		gap: 2rem;
+		gap: 2.5rem;
 		margin-top: 2rem;
 	}
 
+	.year-heading {
+		padding-bottom: 0.6rem;
+		border-bottom: 1px solid color-mix(in oklab, var(--line) 84%, white);
+	}
+
 	section ul {
-		margin: 0.75rem 0 0;
+		margin: 0.85rem 0 0;
+		display: flex;
+		gap: 1rem;
+		flex-wrap: wrap;
+		padding-left: 0;
+		list-style: none;
+	}
+
+	section li a {
+		text-decoration: none;
+		color: var(--ink-soft);
 	}
 </style>
