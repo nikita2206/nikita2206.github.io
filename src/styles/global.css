@@ -1,13 +1,13 @@
 :root {
-	--paper: oklch(0.972 0.004 95);
-	--paper-strong: oklch(0.95 0.006 95);
-	--ink: oklch(0.24 0.01 260);
-	--ink-soft: oklch(0.42 0.012 255);
-	--muted: oklch(0.58 0.01 255);
-	--line: oklch(0.86 0.006 95);
-	--accent: oklch(0.42 0.03 285);
-	--accent-soft: oklch(0.62 0.02 285);
-	--box-shadow: 0 10px 24px rgba(25, 24, 34, 0.06);
+	--paper: oklch(0.982 0.002 95);
+	--paper-strong: oklch(0.965 0.003 95);
+	--ink: oklch(0.22 0.008 255);
+	--ink-soft: oklch(0.39 0.01 255);
+	--muted: oklch(0.55 0.008 255);
+	--line: oklch(0.89 0.004 95);
+	--accent: oklch(0.3 0.014 255);
+	--accent-soft: oklch(0.56 0.012 255);
+	--box-shadow: 0 8px 20px rgba(20, 20, 24, 0.04);
 }
 
 @font-face {
@@ -32,14 +32,14 @@ html {
 }
 
 body {
-	font-family: Georgia, 'Times New Roman', serif;
+	font-family: Atkinson, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 	margin: 0;
 	padding: 0;
 	text-align: left;
 	background: var(--paper);
 	color: var(--ink);
-	font-size: 19px;
-	line-height: 1.72;
+	font-size: 18px;
+	line-height: 1.65;
 	word-wrap: break-word;
 	overflow-wrap: break-word;
 	overflow-x: hidden;
@@ -60,23 +60,23 @@ h5,
 h6 {
 	margin: 0 0 0.5rem;
 	color: var(--ink);
-	line-height: 0.96;
+	line-height: 1.05;
 	font-weight: 700;
-	letter-spacing: -0.03em;
+	letter-spacing: -0.02em;
 }
 
 h1 {
-	font-size: clamp(3.1rem, 9vw, 6.5rem);
-	max-width: 10ch;
+	font-size: clamp(2.4rem, 6vw, 4.4rem);
+	max-width: 14ch;
 	text-wrap: balance;
 }
 
 h2 {
-	font-size: clamp(1.5rem, 3vw, 2.2rem);
+	font-size: clamp(1.4rem, 2.4vw, 2rem);
 }
 
 h3 {
-	font-size: clamp(1.12rem, 2vw, 1.35rem);
+	font-size: clamp(1.05rem, 1.7vw, 1.2rem);
 }
 
 strong,
@@ -148,11 +148,10 @@ pre > code {
 }
 
 blockquote {
-	border-left: 2px solid color-mix(in oklab, var(--accent) 65%, var(--line));
-	padding: 0.15rem 0 0.15rem 1rem;
+	border-left: 2px solid color-mix(in oklab, var(--accent) 55%, var(--line));
+	padding: 0.1rem 0 0.1rem 1rem;
 	margin: 0;
 	color: var(--ink-soft);
-	font-style: italic;
 }
 
 hr {
@@ -177,7 +176,7 @@ hr {
 
 @media (max-width: 720px) {
 	body {
-		font-size: 18px;
+		font-size: 17px;
 	}
 
 	main {
@@ -185,6 +184,6 @@ hr {
 	}
 
 	h1 {
-		max-width: 12ch;
+		max-width: 16ch;
 	}
 }

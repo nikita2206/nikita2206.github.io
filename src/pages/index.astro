@@ -9,7 +9,6 @@ import { SITE_DESCRIPTION, SITE_TITLE } from '../consts';
 const posts = (await getCollection('blog')).sort(
 	(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );
-const [leadPost, ...restPosts] = posts;
 ---
 
 <!doctype html>
@@ -20,21 +19,13 @@ const [leadPost, ...restPosts] = posts;
 	<body>
 		<Header />
 		<main>
-			{leadPost && (
-				<article class="lead-post">
-					<p class="lead-meta"><FormattedDate date={leadPost.data.pubDate} /></p>
-					<h2><a href={`/blog/${leadPost.id}/`}>{leadPost.data.title}</a></h2>
-					<p class="lead-description">{leadPost.data.description}</p>
-				</article>
-			)}
-
 			<ul class="posts">
-				{restPosts.map((post, index) => (
-					<li class:list={{ odd: index % 2 === 0 }}>
+				{posts.map((post) => (
+					<li>
 						<a href={`/blog/${post.id}/`}>
 							<span class="post-date"><FormattedDate date={post.data.pubDate} /></span>
 							<div class="post-body">
-								<h3>{post.data.title}</h3>
+								<h2>{post.data.title}</h2>
 								<p>{post.data.description}</p>
 							</div>
 						</a>
@@ -47,31 +38,9 @@ const [leadPost, ...restPosts] = posts;
 </html>
 
 <style>
-	.lead-meta,
 	.post-date {
 		font-size: 0.78rem;
-		letter-spacing: 0.1em;
-		text-transform: uppercase;
 		color: var(--muted);
-	}
-
-
-	.lead-post {
-		margin: 0 0 3rem;
-		padding: 0 0 2rem;
-		border-bottom: 1px solid color-mix(in oklab, var(--line) 84%, white);
-	}
-
-	.lead-post h2 {
-		font-size: clamp(2rem, 4.8vw, 4rem);
-		max-width: 12ch;
-		margin: 0.35rem 0 0.65rem;
-	}
-
-	.lead-description {
-		max-width: 34rem;
-		font-size: 1.08rem;
-		color: var(--ink-soft);
 	}
 
 	.posts {
@@ -99,8 +68,9 @@ const [leadPost, ...restPosts] = posts;
 		max-width: 40rem;
 	}
 
-	.posts h3 {
+	.posts h2 {
 		margin-bottom: 0.2rem;
+		font-size: 1.2rem;
 	}
 
 	.posts p {
@@ -108,12 +78,7 @@ const [leadPost, ...restPosts] = posts;
 		color: var(--ink-soft);
 	}
 
-	.posts li.odd .post-body {
-		padding-left: 1.2rem;
-	}
-
-	.posts a:hover h3,
-	.lead-post a:hover {
+	.posts a:hover h2 {
 		color: var(--accent);
 	}
 
@@ -123,8 +88,5 @@ const [leadPost, ...restPosts] = posts;
 			gap: 0.45rem;
 		}
 
-		.posts li.odd .post-body {
-			padding-left: 0;
-		}
 	}
 </style>

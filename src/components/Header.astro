@@ -14,7 +14,6 @@ import HeaderLink from './HeaderLink.astro';
 		</nav>
 	</div>
 	<div class="masthead">
-		<p class="kicker">Notes, fragments, dispatches</p>
 		<h2><a href="/">{SITE_TITLE}</a></h2>
 	</div>
 </header>
@@ -26,7 +25,6 @@ import HeaderLink from './HeaderLink.astro';
 
 	.utility-bar {
 		padding: 0 1.25rem;
-		border-bottom: 1px solid color-mix(in oklab, var(--line) 88%, white);
 	}
 
 	.utility-bar nav,
@@ -37,47 +35,24 @@ import HeaderLink from './HeaderLink.astro';
 
 	.internal-links {
 		display: flex;
-		gap: 0.9rem;
-		padding: 0.45rem 0;
+		gap: 0.75rem;
+		padding: 0.55rem 0;
 	}
 
 	.utility-bar a {
 		padding: 0;
-		font-size: 0.74rem;
-		letter-spacing: 0.12em;
-		text-transform: uppercase;
+		font-size: 0.9rem;
 		color: var(--muted);
 		text-decoration: none;
-		border-bottom: 1px solid transparent;
 	}
 
 	.utility-bar a.active,
 	.utility-bar a:hover {
 		color: var(--ink);
-		border-bottom-color: color-mix(in oklab, var(--accent) 22%, var(--ink));
 	}
 
 	.masthead {
-		display: flex;
-		justify-content: space-between;
-		align-items: end;
-		gap: 1rem;
-		padding: 0.8rem 1.25rem 0.9rem;
-	}
-
-	.kicker {
-		margin: 0;
-		font-size: 0.78rem;
-		letter-spacing: 0.08em;
-		text-transform: uppercase;
-		color: var(--muted);
-	}
-
-	h2 {
-		margin: 0;
-		font-size: clamp(1.2rem, 2vw, 1.8rem);
-		font-weight: 700;
-		letter-spacing: -0.03em;
+		display: none;
 	}
 
 	h2 a,
@@ -87,11 +62,6 @@ import HeaderLink from './HeaderLink.astro';
 	}
 
 	@media (max-width: 640px) {
-		.masthead {
-			flex-direction: column;
-			align-items: flex-start;
-		}
-
 		.internal-links {
 			gap: 0.7rem;
 			flex-wrap: wrap;
