@@ -20,14 +20,6 @@ const [leadPost, ...restPosts] = posts;
 	<body>
 		<Header />
 		<main>
-			<section class="intro">
-				<p class="label">Latest writing</p>
-				<h1>Posts</h1>
-				<p class="deck">
-					A running file of notes, observations, links, and the occasional thing that needed more room.
-				</p>
-			</section>
-
 			{leadPost && (
 				<article class="lead-post">
 					<p class="lead-meta"><FormattedDate date={leadPost.data.pubDate} /></p>
@@ -55,13 +47,6 @@ const [leadPost, ...restPosts] = posts;
 </html>
 
 <style>
-	.intro {
-		display: grid;
-		gap: 0.75rem;
-		margin-bottom: 3rem;
-	}
-
-	.label,
 	.lead-meta,
 	.post-date {
 		font-size: 0.78rem;
@@ -70,11 +55,6 @@ const [leadPost, ...restPosts] = posts;
 		color: var(--muted);
 	}
 
-	.deck {
-		max-width: 38rem;
-		font-size: 1.1rem;
-		color: var(--ink-soft);
-	}
 
 	.lead-post {
 		margin: 0 0 3rem;
