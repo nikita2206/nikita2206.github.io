@@ -4,8 +4,6 @@ description: Ways you can give an agent access to external services that require
 pubDate: 2026-04-07
 ---
 
-# Agents and secrets
-
 This is a short run down on ways you can give an agent access to external services that require auth, especially headless agents that run **autonomously**. From least safe to the most secure.
 
 Since there is overall shift from MCP to CLI, I am focusing mostly on CLI here.
