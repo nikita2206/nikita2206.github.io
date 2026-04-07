@@ -1,0 +1,133 @@
+---
+import { getCollection } from 'astro:content';
+import BaseHead from '../../components/BaseHead.astro';
+import Footer from '../../components/Footer.astro';
+import FormattedDate from '../../components/FormattedDate.astro';
+import Header from '../../components/Header.astro';
+import { SITE_TITLE } from '../../consts';
+
+export async function getStaticPaths({ paginate }) {
+	const pageSize = 10;
+	const posts = (await getCollection('blog')).sort(
+		(a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+	);
+
+	return paginate(posts, {
+		pageSize,
+		params: { page: undefined },
+	});
+}
+
+const { page } = Astro.props;
+const currentPage = page.currentPage;
+const totalPages = page.lastPage;
+const prevUrl = currentPage === 2 ? '/' : currentPage > 2 ? `/page/${currentPage - 1}/` : null;
+const nextUrl = currentPage < totalPages ? `/page/${currentPage + 1}/` : null;
+---
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<BaseHead
+			title={`Posts — Page ${currentPage} | ${SITE_TITLE}`}
+			description={`Page ${currentPage} of posts on ${SITE_TITLE}.`}
+		/>
+		{prevUrl && <link rel="prev" href={prevUrl} />}
+		{nextUrl && <link rel="next" href={nextUrl} />}
+	</head>
+	<body>
+		<Header />
+		<main>
+			<h1>Posts</h1>
+			<p class="page-meta">Page {currentPage} of {totalPages}</p>
+			<ul class="posts">
+				{page.data.map((post) => (
+					<li>
+						<a href={`/blog/${post.id}/`}>
+							<div>
+								<h2>{post.data.title}</h2>
+								<p>{post.data.description}</p>
+							</div>
+							<span><FormattedDate date={post.data.pubDate} /></span>
+						</a>
+					</li>
+				))}
+			</ul>
+
+			<nav class="pagination" aria-label="Pagination">
+				{prevUrl ? <a href={prevUrl} rel="prev">Newer posts</a> : <span class="muted">Newest page</span>}
+				<span class="current">Page {currentPage}</span>
+				{nextUrl ? <a href={nextUrl} rel="next">Older posts</a> : <span class="muted">Oldest page</span>}
+			</nav>
+		</main>
+		<Footer />
+	</body>
+</html>
+
+<style>
+	.page-meta,
+	.posts p,
+	.posts span,
+	.current,
+	.muted {
+		color: rgb(var(--gray));
+	}
+
+	.posts {
+		list-style: none;
+		margin: 2rem 0 0;
+		padding: 0;
+	}
+
+	.posts li {
+		border-bottom: 1px solid rgba(var(--gray), 0.14);
+	}
+
+	.posts a {
+		display: flex;
+		justify-content: space-between;
+		gap: 1rem;
+		padding: 1rem 0;
+		text-decoration: none;
+		color: inherit;
+	}
+
+	.posts h2 {
+		font-size: 1.35rem;
+		margin-bottom: 0.25rem;
+	}
+
+	.pagination {
+		display: grid;
+		grid-template-columns: 1fr auto 1fr;
+		align-items: center;
+		gap: 1rem;
+		margin-top: 2rem;
+		padding-top: 1rem;
+		border-top: 1px solid rgba(var(--gray), 0.14);
+	}
+
+	.pagination > *:nth-child(2) {
+		justify-self: center;
+	}
+
+	.pagination > *:last-child {
+		justify-self: end;
+	}
+
+	@media (max-width: 720px) {
+		.posts a {
+			flex-direction: column;
+			align-items: flex-start;
+		}
+
+		.pagination {
+			grid-template-columns: 1fr;
+		}
+
+		.pagination > *:nth-child(2),
+		.pagination > *:last-child {
+			justify-self: start;
+		}
+	}
+</style>
